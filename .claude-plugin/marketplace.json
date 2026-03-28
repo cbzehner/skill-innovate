@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "innovate",
+  "owner": {
+    "name": "cbzehner",
+    "email": "chris@cbzehner.com"
+  },
+  "plugins": [
+    {
+      "name": "innovate",
+      "source": "./",
+      "description": "Ask frontier models for the single smartest, most radically innovative addition to your plan or project",
+      "version": "1.0.0",
+      "author": {
+        "name": "cbzehner",
+        "email": "chris@cbzehner.com"
+      },
+      "category": "productivity",
+      "homepage": "https://github.com/cbzehner/skill-innovate"
+    }
+  ]
+}
