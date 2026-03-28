@@ -4,7 +4,7 @@ Ask frontier models for the single smartest, most radically innovative addition 
 
 > *"What's the single smartest and most radically innovative and accretive and useful and compelling addition you could make to the plan at this point?"*
 >
-> — [Jeffrey Emanuel](https://x.com/doodlestein)
+> — Jeffrey Emanuel ([@doodlestein](https://x.com/doodlestein)), [original tweet](https://x.com/doodlestein/status/2025645582782480827)
 
 ## Why Use This?
 
