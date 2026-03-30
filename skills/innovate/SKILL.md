@@ -37,7 +37,7 @@ could make?"
 ### Step 1: Gather Context
 
 Read `$ARGUMENTS` if it points to a file. Otherwise, search for plan or project
-files in the current directory (PLAN.md, README.md, CLAUDE.md, src/, etc.).
+files in the current directory (PLAN.md, README.md, AGENTS.md, CLAUDE.md, src/, etc.).
 
 **Why:** Models produce generic suggestions without concrete context. The more
 specific the input, the more specific (and useful) the proposal.
@@ -73,12 +73,15 @@ requires the model to prioritize. Three models x one idea = manageable
 diversity without overwhelm.
 
 Advisors:
-1. **Claude** (Agent, model: opus) — deep reasoning
+1. **Host-native advisor** (the current host — Claude or Codex depending on environment)
 2. **Gemini** (Bash) — `gemini -p "{prompt}" --model gemini-3.1-pro-preview --sandbox -o text`
 3. **Codex** (Bash) — `codex exec --sandbox read-only --skip-git-repo-check -- "{prompt}"`
 
-**Note:** Gemini and Codex require permission allowlisting. If not configured,
-Claude-only is still valuable — one strong proposal beats none.
+**Host-as-advisor:** Don't double-count. If you're in Codex, skip the Codex CLI
+call — the host IS the Codex advisor. If you're in Claude, skip `claude -p`.
+
+**Note:** Gemini and Codex CLIs require permission allowlisting. If not configured,
+the host-native advisor alone is still valuable — one strong proposal beats none.
 
 ### Step 3: Synthesize
 
@@ -90,13 +93,13 @@ Present results as:
 ```markdown
 ## Innovation Proposals
 
-### Claude
+### [Host Model Name — Claude or Codex]
 {proposal + reasoning}
 
 ### Gemini
 {proposal + reasoning, or "Unavailable: [reason]"}
 
-### Codex
+### [External Advisor — Codex or Claude]
 {proposal + reasoning, or "Unavailable: [reason]"}
 
 ## Synthesis
@@ -118,7 +121,7 @@ Use AskUserQuestion:
 |-----------|--------|
 | Tool not installed | Note "Unavailable: not installed" in output, proceed with others |
 | Rate limit / 429 | Retry once after 60s, then mark unavailable |
-| Permission denied | Note in output; suggest adding `Bash(gemini *)` / `Bash(codex *)` to settings |
+| Permission denied | Note in output; suggest allowlisting `gemini` / `codex` in the host agent settings |
 | Thin context | Ask user for more context before querying — garbage in, garbage out |
 | All proposals generic | Tighten the prompt with more specific context and re-query one advisor |
 | No genuinely novel idea | Say so honestly — don't force a recommendation that isn't there |
