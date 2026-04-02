@@ -75,7 +75,7 @@ diversity without overwhelm.
 Advisors:
 1. **Host-native advisor** (the current host — Claude or Codex depending on environment)
 2. **Gemini** (Bash) — `gemini -p "{prompt}" --model gemini-3.1-pro-preview --sandbox -o text`
-3. **Codex** (Bash) — prefer plugin companion if installed, fall back to `codex exec --sandbox read-only --skip-git-repo-check -- "{prompt}"`
+3. **Codex** (Bash) — prefer plugin companion if installed, fall back to `codex exec --sandbox read-only --skip-git-repo-check -- "{prompt}" < /dev/null`
 
 **Host-as-advisor:** Don't double-count. If you're in Codex, skip the Codex CLI
 call — the host IS the Codex advisor. If you're in Claude, skip `claude -p`.
