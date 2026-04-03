@@ -5,7 +5,8 @@ description: Queries frontier models in parallel for the single highest-leverage
   or asking "what am I missing?"
 argument-hint: "[plan file or project description]"
 effort: high
-allowed-tools: Bash, Read, Glob, Grep, Agent, AskUserQuestion
+license: MIT
+allowed-tools: Bash Read Glob Grep Agent AskUserQuestion
 ---
 
 # Innovate
