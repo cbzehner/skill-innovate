@@ -48,67 +48,14 @@ Build a concise summary: goals, architecture, current state, constraints.
 
 Run three advisors in parallel (one message, three Agent/Bash calls):
 
-**Prompt template:**
-
-```
-Here is the current state of a {plan|project}:
-
----
-{context}
----
-
-What is the single smartest and most radically innovative and accretive and
-useful and compelling addition you could make at this point?
-
-Rules:
-- Propose exactly ONE addition, not a list
-- Explain WHY it's high-leverage — what does it unlock?
-- Be specific and concrete, not vague ("add AI" is not an answer)
-- Consider what's missing, not what's already there
-- Think about 10x improvements, not 10% improvements
-```
-
-**Why one idea:** Forcing a single proposal prevents brainstorm dumps and
-requires the model to prioritize. Three models x one idea = manageable
-diversity without overwhelm.
-
-Advisors:
-1. **Host-native advisor** (the current host — Claude or Codex depending on environment)
-2. **Gemini** (Bash) — `gemini -p "{prompt}" --model gemini-3.1-pro-preview --sandbox -o text`
-3. **Codex** (Bash) — `bash codex-adapter.sh "{prompt}"` (prefers companion plugin, falls back to CLI — see [codex-adapter.sh](codex-adapter.sh))
-
-**Host-as-advisor:** Don't double-count. If you're in Codex, skip the Codex CLI
-call — the host IS the Codex advisor. If you're in Claude, skip `claude -p`.
-
-**Note:** Gemini and Codex CLIs require permission allowlisting. If not configured,
-the host-native advisor alone is still valuable — one strong proposal beats none.
+See [references/advisor-prompt.md](references/advisor-prompt.md) for the prompt template and advisor specifications (host-native, Gemini, Codex).
 
 ### Step 3: Synthesize
 
 **Why synthesize:** Raw advisor output overwhelms. Your job is to critically
 evaluate, find themes, and elevate the most practical high-impact idea.
 
-Present results as:
-
-```markdown
-## Innovation Proposals
-
-### [Host Model Name — Claude or Codex]
-{proposal + reasoning}
-
-### Gemini
-{proposal + reasoning, or "Unavailable: [reason]"}
-
-### [External Advisor — Codex or Claude]
-{proposal + reasoning, or "Unavailable: [reason]"}
-
-## Synthesis
-{Which proposal is strongest and why. Common themes? Complements?}
-
-## Recommended Addition
-{The single best addition, refined from all inputs.
- Concrete next steps if the user wants to proceed.}
-```
+Present results using the format in [references/synthesis-template.md](references/synthesis-template.md).
 
 ### Step 4: Ask
 
