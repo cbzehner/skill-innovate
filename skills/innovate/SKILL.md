@@ -4,6 +4,8 @@ description: Queries frontier models in parallel for the single highest-leverage
   addition to a plan or project. Use when brainstorming, seeking creative push,
   or asking "what am I missing?"
 argument-hint: "[plan file or project description]"
+arguments:
+  - input
 effort: high
 license: MIT
 allowed-tools: Bash Read Glob Grep Agent AskUserQuestion
