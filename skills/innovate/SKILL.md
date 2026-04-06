@@ -20,20 +20,9 @@ Based on Jeffrey Emanuel's technique: after you think you're done, ask
 "What's the single smartest and most radically innovative addition you
 could make?"
 
-## When to Use
+## Guard Rails
 
-- After writing or finalizing an implementation plan
-- After completing a major feature — to find what you missed
-- When a project feels "done" but you suspect there's a high-leverage addition
-- When the user says "innovate", "what am I missing", or "what's the one thing"
-
-## When NOT to Use
-
-- **Bug fixing or debugging** — use systematic-debugging instead
-- **Execution tasks** — if the user wants implementation, not ideation
-- **Incomplete plans** — innovate on something finished, not half-baked
-- **Scope-constrained work** — if the user explicitly wants MVP or minimal scope
-- **Routine refactoring** — not for standard code cleanup
+Do NOT activate for: bug fixing, execution/implementation tasks, incomplete plans, scope-constrained (MVP) work, or routine refactoring.
 
 ## Workflow
 
@@ -41,23 +30,16 @@ could make?"
 
 Read `$ARGUMENTS` if it points to a file. Otherwise, search for plan or project
 files in the current directory (PLAN.md, README.md, AGENTS.md, CLAUDE.md, src/, etc.).
-
-**Why:** Models produce generic suggestions without concrete context. The more
-specific the input, the more specific (and useful) the proposal.
-
-Build a concise summary: goals, architecture, current state, constraints.
+Summarize: goals, architecture, current state, constraints.
 
 ### Step 2: Query Advisors in Parallel
 
-Run three advisors in parallel (one message, three Agent/Bash calls):
-
-See [references/advisor-prompt.md](references/advisor-prompt.md) for the prompt template and advisor specifications (host-native, Gemini, Codex).
+Run three advisors in parallel (one message, three Agent/Bash calls).
+See [references/advisor-prompt.md](references/advisor-prompt.md) for the prompt template and advisor specifications.
 
 ### Step 3: Synthesize
 
-**Why synthesize:** Raw advisor output overwhelms. Your job is to critically
-evaluate, find themes, and elevate the most practical high-impact idea.
-
+Critically evaluate proposals, find themes, elevate the most practical high-impact idea.
 Present results using the format in [references/synthesis-template.md](references/synthesis-template.md).
 
 ### Step 4: Ask
@@ -69,23 +51,16 @@ Use AskUserQuestion:
 
 | Situation | Action |
 |-----------|--------|
-| Tool not installed | Note "Unavailable: not installed" in output, proceed with others |
-| Rate limit / 429 | Retry once after 60s, then mark unavailable |
-| Permission denied | Note in output; suggest allowlisting `gemini` / `codex` in the host agent settings |
-| Thin context | Ask user for more context before querying — garbage in, garbage out |
-| All proposals generic | Tighten the prompt with more specific context and re-query one advisor |
-| No genuinely novel idea | Say so honestly — don't force a recommendation that isn't there |
+| Tool not installed | Note "Unavailable" in output, proceed with others |
+| Rate limit / permission denied | Retry once after 60s, then mark unavailable |
+| Thin context | Ask user for more context before querying |
+| All proposals generic | Tighten prompt with more specific context, re-query one advisor |
+| No novel idea | Say so honestly — don't force a recommendation |
 
 ## Examples
 
-**Trigger:** `/innovate PLAN.md` after finishing an implementation plan
-**Context gathered:** Plan for a CLI tool with parsing, transformation, output phases
-**Output:** Three proposals (e.g., structural diff, plugin system, watch mode) →
-synthesized recommendation with concrete next steps.
+`/innovate PLAN.md` — reads plan, queries three advisors, synthesizes one recommended addition with next steps.
 
-**Trigger:** `/innovate` in an existing project directory
-**Context gathered:** README, src/ structure, existing features
-**Output:** One high-leverage addition the project is missing.
+`/innovate` in a project directory — reads README + src/, proposes one high-leverage addition.
 
-**Anti-trigger:** "Fix this OAuth callback bug" → do NOT trigger innovate.
-This is a debugging task, not an ideation task.
+Anti-trigger: "Fix this OAuth bug" — this is debugging, not ideation. Do not activate.
